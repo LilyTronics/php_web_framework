@@ -27,11 +27,7 @@ Now the web page should be available at: http://localhost:8080.
 
 The MySQL admin page should be available at: http://localhost:8080/phpmyadmin.
 
-The web pages are served from the folder: `C:\xampp\htdocs`.
-
-Open the folder `C:\xampp\htdocs`. Create a new folder: `xampp_pages`. Move all files to that folder.
-If you open the web pages now, you will see the folder `xampp-pages`.
-When you click on that, you see the original xampp pages.
+The web pages are served from the folder: `C:\xampp\htdocs`. Emty this folder
 
 Clone this repo to the folder `C:\xampp\htdocs`.
 
