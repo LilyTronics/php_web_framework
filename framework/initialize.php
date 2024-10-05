@@ -6,9 +6,6 @@ require_once("models/frameworkFunctions.php");
 // Set if we are on localhost
 define("IS_LOCALHOST", $_SERVER["SERVER_NAME"] == "localhost");
 
-// Search paths for the autoloader
-$_AUTOLOADER_SEARCH_PATHS = array("framework");
-
 // Set the time zone
 date_default_timezone_set("UTC");
 
@@ -50,7 +47,10 @@ define("APP_JS_PATH", APP_PATH . "js/");
 define("APP_STYLES_PATH", APP_PATH . "styles/");
 define("APP_IMAGES_PATH", APP_PATH . "images/");
 
-// Application paths for the autoloader
-$_AUTOLOADER_SEARCH_PATHS[] = APP_CONTROLLERS_PATH;
-$_AUTOLOADER_SEARCH_PATHS[] = APP_MODELS_PATH;
-$_AUTOLOADER_SEARCH_PATHS[] = APP_VIEWS_PATH;
+// Search paths for the autoloader
+$_AUTOLOADER_SEARCH_PATHS = array(
+    "framework",
+    APP_CONTROLLERS_PATH,
+    APP_MODELS_PATH,
+    APP_VIEWS_PATH
+);
