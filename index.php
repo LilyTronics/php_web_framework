@@ -2,7 +2,7 @@
 
 // Load initalization scripts for the framework and the application
 require_once("framework/initialize.php");
-require_once(APP_PATH . "initialize.php");
+require_once(DOC_ROOT . APP_PATH . "initialize.php");
 
 // Start logging the time
 ModelTimeLogger::start();
