@@ -36,9 +36,9 @@ define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"] . WEB_PAGE_FOLDER);
 define("SYS_LOG_PATH", DOC_ROOT . ".logs/" );
 define("LOG_TIME_FORMAT", "Y-m-d H:i:s");
 define("MAX_LOG_LINES", 500);
-if (defined("SUB_MODULE_PATH") && SUB_MODULE_PATH != "")
+if (defined("SUBMODULE_PATH") && SUBMODULE_PATH != "")
 {
-    define("FRAMEWORK_PATH", SUB_MODULE_PATH . "framework");
+    define("FRAMEWORK_PATH", SUBMODULE_PATH . "framework");
 }
 else
 {
@@ -76,9 +76,9 @@ if (defined("SHOW_DEBUG") && SHOW_DEBUG)
     echo "SYS_LOG_PATH         : " . var_export(SYS_LOG_PATH, true) . "\n";
     echo "LOG_TIME_FORMAT      : " . var_export(SYS_LOG_PATH, true) . "\n";
     echo "MAX_LOG_LINES        : " . var_export(MAX_LOG_LINES, true) . "\n";
-    if (defined("SUB_MODULE_PATH"))
+    if (defined("SUBMODULE_PATH"))
     {
-        echo "SUB_MODULE_PATH      : " . var_export(SUB_MODULE_PATH, true) . "\n";
+        echo "SUBMODULE_PATH       : " . var_export(SUBMODULE_PATH, true) . "\n";
     }
     echo "FRAMEWORK_PATH       : " . var_export(FRAMEWORK_PATH, true) . "\n";
 
