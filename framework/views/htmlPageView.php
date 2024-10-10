@@ -33,7 +33,7 @@ class HtmlPageView
 
     protected function insertBody()
     {
-        $output = "<body>\n\n";
+        $output = "<body>\n";
         $output .= "<!-- Insert contents of {$this->pageFile} -->\n";
         $output .= $this->getContentFromPageFile($this->pageFile);
         $output .= "<!-- End of {$this->pageFile} -->\n\n";
@@ -192,6 +192,12 @@ class HtmlPageView
         $output .= "</head>\n";
         $output .= $this->insertBody();
         $output .= "</html>\n";
+        // If template values are defined, replace them in the output
+        // E.g.: define("TEMPLATE_VALUES", [ "{MY_VAR}" => "my value"]);
+        if (defined("TEMPLATE_VALUES"))
+        {
+            $output = strtr($output, TEMPLATE_VALUES);
+        }
         return $output;
     }
 
