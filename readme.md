@@ -7,11 +7,12 @@ Simple web framework based on PHP, for simple projects.
 * MVC pattern (model, view, controller)
 * Router for pretty URLs: https://mydomain.com/name-of-page
 * Use as a submodule in project.
+* Easy use of MySQL databases.
 
 ## To do
-* Easy use of MySQL databases.
+
 * Add a demo web page with all features
-  
+
 ## Using as a submodule
 Start a new empty git project. Clone the framework as a submodule in your project:
 
