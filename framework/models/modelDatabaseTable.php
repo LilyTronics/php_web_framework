@@ -99,6 +99,10 @@ class ModelDatabaseTable {
         return $this->interface->truncateTable($this->tableName);
     }
 
+    public function deleteTable() {
+        return $this->interface->dropTable($this->tableName);
+    }
+
 }
 
 ?>
