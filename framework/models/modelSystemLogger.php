@@ -8,17 +8,24 @@ class ModelSystemLogger
 
     public function __construct($filename="", $callerName="")
     {
-        if ($filename == "")
+        if ($filename == "DUMMY")
         {
-            $trace = debug_backtrace();
-            $caller = $trace[1];
-            $filename = "general";
-            if (isset($caller["class"]))
-            {
-                $filename = lcfirst($caller["class"]);
-            }
+            $this->logFilename = null;
         }
-        $this->logFilename = SYS_LOG_PATH . "$filename.log";
+        else
+        {
+            if ($filename == "")
+            {
+                $trace = debug_backtrace();
+                $caller = $trace[1];
+                $filename = "general";
+                if (isset($caller["class"]))
+                {
+                    $filename = lcfirst($caller["class"]);
+                }
+            }
+            $this->logFilename = SYS_LOG_PATH . "$filename.log";
+        }
         $this->callerName = $callerName;
     }
 
@@ -42,30 +49,33 @@ class ModelSystemLogger
 
     private function writeLines($caller, $arrayWithLines)
     {
-        $callerName = $this->callerName;
-        if (isset($caller[1]["function"]))
+        if ($this->logFilename)
         {
-            $callerName = $caller[1]["function"];
-        }
-        $date = new DateTime();
-        $timeStamp = $date->format(LOG_TIME_FORMAT);
-        $lines = array();
-        if (file_exists($this->logFilename))
-        {
-            $lines = array_filter(explode("\n", file_get_contents($this->logFilename)));
-        }
-        foreach($arrayWithLines as $line)
-        {
-            if ($line != "")
+            $callerName = $this->callerName;
+            if (isset($caller[1]["function"]))
             {
-                $lines[] = "$timeStamp - $callerName - $line";
+                $callerName = $caller[1]["function"];
             }
+            $date = new DateTime();
+            $timeStamp = $date->format(LOG_TIME_FORMAT);
+            $lines = array();
+            if (file_exists($this->logFilename))
+            {
+                $lines = array_filter(explode("\n", file_get_contents($this->logFilename)));
+            }
+            foreach($arrayWithLines as $line)
+            {
+                if ($line != "")
+                {
+                    $lines[] = "$timeStamp - $callerName - $line";
+                }
+            }
+            if (count($lines) > MAX_LOG_LINES)
+            {
+                $lines = array_slice($lines, -MAX_LOG_LINES);
+            }
+            file_put_contents($this->logFilename, implode("\n", $lines));
         }
-        if (count($lines) > MAX_LOG_LINES)
-        {
-            $lines = array_slice($lines, -MAX_LOG_LINES);
-        }
-        file_put_contents($this->logFilename, implode("\n", $lines));
     }
 
 }

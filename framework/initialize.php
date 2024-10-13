@@ -78,3 +78,8 @@ if (defined("SHOW_DEBUG") && SHOW_DEBUG)
     FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
     logFrameworkConstants();
 }
+else
+{
+    // Create a dummy logger, else calls to the debug logger will fail
+    define("FRAMEWORK_DEBUG_LOG", new ModelSystemLogger("DUMMY"));
+}
