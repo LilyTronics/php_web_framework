@@ -62,3 +62,16 @@ $_AUTOLOADER_SEARCH_PATHS = array(
     APP_MODELS_PATH,
     APP_VIEWS_PATH
 );
+
+
+// Load application intialization
+require_once(DOC_ROOT . APP_PATH . "initialize.php");
+
+
+// This should be defined in the application initialize.php
+if (defined("SHOW_DEBUG") && SHOW_DEBUG)
+{
+    // Create a debug logger
+    define("FRAMEWORK_DEBUG_LOG", new ModelSystemLogger("frameworkDebug"));
+    logFrameworkConstants();
+}

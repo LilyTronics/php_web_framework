@@ -2,14 +2,7 @@
 
 // Load initalization scripts for the framework and the application
 require_once("framework/initialize.php");
-require_once(DOC_ROOT . APP_PATH . "initialize.php");
 
-
-// This should be defined in the application initialize.php
-if (defined("SHOW_DEBUG") && SHOW_DEBUG)
-{
-    logFrameworkConstants();
-}
 
 // Start logging the time
 ModelTimeLogger::start();

@@ -25,7 +25,7 @@ class ModelSystemLogger
 
     public function writeMessage($message)
     {
-        $lines = explode(PHP_EOL, $message);
+        $lines = explode("\n", $message);
         $trace = debug_backtrace();
         $this->writeLines($trace, $lines);
     }
@@ -34,7 +34,7 @@ class ModelSystemLogger
     public function writeDataArray($dataArray)
     {
         $dataString = var_export($dataArray, true);
-        $lines = array_filter(explode(PHP_EOL, $dataString));
+        $lines = array_filter(explode("\n", $dataString));
         $trace = debug_backtrace();
         $this->writeLines($trace, $lines);
     }
