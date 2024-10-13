@@ -73,5 +73,8 @@ if (defined("SHOW_DEBUG") && SHOW_DEBUG)
 {
     // Create a debug logger
     define("FRAMEWORK_DEBUG_LOG", new ModelSystemLogger("frameworkDebug"));
+    FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
+    FRAMEWORK_DEBUG_LOG->writeMessage("|                            Start framework debug                             |");
+    FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
     logFrameworkConstants();
 }

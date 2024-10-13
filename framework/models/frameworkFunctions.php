@@ -60,10 +60,9 @@ function GetProtocol()
 // define("FORCE_SSL", true);
 function forceSSL()
 {
-    $log = new ModelSystemLogger("frameworkDebug");
     if (defined("DOMAIN") && $_SERVER["SERVER_NAME"] == DOMAIN && defined("FORCE_SSL") && FORCE_SSL && WEB_ROOT != WEB_ROOT_FORCE_SSL)
     {
-        $log->writeMessage("Forcing SSL for URI: " . REQUEST_URI);
+        FRAMEWORK_DEBUG_LOG->writeMessage("Forcing SSL for URI: " . REQUEST_URI);
         while (substr(REQUEST_URI, 0, 1) == "/")
         {
             $currentUri = ltrim(REQUEST_URI, "/");
@@ -71,42 +70,45 @@ function forceSSL()
         $log->writeMessage("Redirect to $currentUri with SSL");
         header("Location: " . createLinkTo($currentUri, WEB_ROOT_FORCE_SSL));
     }
+    else
+    {
+        FRAMEWORK_DEBUG_LOG->writeMessage("No force SSL enabled");
+    }
 }
 
 
 // Log all the framework constants for debugging purpose
 function logFrameworkConstants()
 {
-    if (defined("FRAMEWORK_DEBUG_LOG"))
+    global $_AUTOLOADER_SEARCH_PATHS;
+
+    FRAMEWORK_DEBUG_LOG->writeMessage("Framework constants:");
+    FRAMEWORK_DEBUG_LOG->writeMessage("IS_LOCALHOST         : " . var_export(IS_LOCALHOST, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("REQUEST_URI          : " . var_export(REQUEST_URI, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("WEB_PAGE_FOLDER      : " . var_export(WEB_PAGE_FOLDER, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("WEB_ROOT             : " . var_export(WEB_ROOT, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("WEB_ROOT_FORCE_SSL   : " . var_export(WEB_ROOT_FORCE_SSL, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("DOC_ROOT             : " . var_export(DOC_ROOT, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("SYS_LOG_PATH         : " . var_export(SYS_LOG_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("LOG_TIME_FORMAT      : " . var_export(SYS_LOG_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("MAX_LOG_LINES        : " . var_export(MAX_LOG_LINES, true));
+    if (defined("SUBMODULE_PATH"))
     {
-        global $_AUTOLOADER_SEARCH_PATHS;
-
-        FRAMEWORK_DEBUG_LOG->writeMessage("Framework constants:");
-        FRAMEWORK_DEBUG_LOG->writeMessage("REQUEST_URI          : " . var_export(REQUEST_URI, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("WEB_PAGE_FOLDER      : " . var_export(WEB_PAGE_FOLDER, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("WEB_ROOT             : " . var_export(WEB_ROOT, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("WEB_ROOT_FORCE_SSL   : " . var_export(WEB_ROOT_FORCE_SSL, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("DOC_ROOT             : " . var_export(DOC_ROOT, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("SYS_LOG_PATH         : " . var_export(SYS_LOG_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("LOG_TIME_FORMAT      : " . var_export(SYS_LOG_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("MAX_LOG_LINES        : " . var_export(MAX_LOG_LINES, true));
-        if (defined("SUBMODULE_PATH"))
-        {
-            FRAMEWORK_DEBUG_LOG->writeMessage("SUBMODULE_PATH       : " . var_export(SUBMODULE_PATH, true));
-        }
-        FRAMEWORK_DEBUG_LOG->writeMessage("FRAMEWORK_PATH       : " . var_export(FRAMEWORK_PATH, true));
-
-        FRAMEWORK_DEBUG_LOG->writeMessage("Application constants:");
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_PATH             : " . var_export(APP_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_ROUTER_FILE      : " . var_export(APP_ROUTER_FILE, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_CONTROLLERS_PATH : " . var_export(APP_CONTROLLERS_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_MODELS_PATH      : " . var_export(APP_MODELS_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_VIEWS_PATH       : " . var_export(APP_VIEWS_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_JS_PATH          : " . var_export(APP_JS_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_STYLES_PATH      : " . var_export(APP_STYLES_PATH, true));
-        FRAMEWORK_DEBUG_LOG->writeMessage("APP_IMAGES_PATH      : " . var_export(APP_IMAGES_PATH, true));
-
-        FRAMEWORK_DEBUG_LOG->writeMessage("Autoloader search paths:");
-        FRAMEWORK_DEBUG_LOG->writeDataArray($_AUTOLOADER_SEARCH_PATHS);
+        FRAMEWORK_DEBUG_LOG->writeMessage("SUBMODULE_PATH       : " . var_export(SUBMODULE_PATH, true));
     }
+    FRAMEWORK_DEBUG_LOG->writeMessage("FRAMEWORK_PATH       : " . var_export(FRAMEWORK_PATH, true));
+
+    FRAMEWORK_DEBUG_LOG->writeMessage("Application constants:");
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_PATH             : " . var_export(APP_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_ROUTER_FILE      : " . var_export(APP_ROUTER_FILE, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_CONTROLLERS_PATH : " . var_export(APP_CONTROLLERS_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_MODELS_PATH      : " . var_export(APP_MODELS_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_VIEWS_PATH       : " . var_export(APP_VIEWS_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_JS_PATH          : " . var_export(APP_JS_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_STYLES_PATH      : " . var_export(APP_STYLES_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("APP_IMAGES_PATH      : " . var_export(APP_IMAGES_PATH, true));
+
+    FRAMEWORK_DEBUG_LOG->writeMessage("Autoloader search paths:");
+    FRAMEWORK_DEBUG_LOG->writeDataArray($_AUTOLOADER_SEARCH_PATHS);
 }
+

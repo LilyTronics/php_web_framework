@@ -38,6 +38,9 @@ class ModelRouter
     {
         $isMatch = false;
 
+        FRAMEWORK_DEBUG_LOG->writeMessage("Available routes:");
+        FRAMEWORK_DEBUG_LOG->writeDataArray($this->routes);
+
         // Get the default route, in case the URI is not found
         foreach($this->routes as $route)
         {
@@ -53,6 +56,8 @@ class ModelRouter
         // URI can have URI parameters E.G: /my/uri?param=value
         $uriParts = explode("?", $requestUri);
         $requestUri = $uriParts[0];
+
+        FRAMEWORK_DEBUG_LOG->writeMessage("Request URI to resolve: '{$requestUri}'");
 
         $splittedRequestUri = explode("/", trim($requestUri, "/"));
         foreach ($this->routes as $route)
@@ -80,6 +85,7 @@ class ModelRouter
                 }
                 if ($isMatch)
                 {
+                    FRAMEWORK_DEBUG_LOG->writeMessage("Match from routes found: '{$route["Uri"]}'");
                     $this->controller = $route["Controller"];
                     $this->action = $route["Action"];
                     $this->level = $route["Level"];
@@ -98,6 +104,8 @@ class ModelRouter
 
     public function getResponse()
     {
+        FRAMEWORK_DEBUG_LOG->writeMessage("Execute action: {$this->controller}->{$this->action}() using parameters:");
+        FRAMEWORK_DEBUG_LOG->writeDataArray($this->parameters);
         $controller = new $this->controller();
         return $controller->executeAction($this->action, $this->level, $this->parameters);
     }
