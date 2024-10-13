@@ -62,38 +62,3 @@ $_AUTOLOADER_SEARCH_PATHS = array(
     APP_MODELS_PATH,
     APP_VIEWS_PATH
 );
-
-if (defined("SHOW_DEBUG") && SHOW_DEBUG)
-{
-    echo "<pre>";
-
-    echo "Framework constants:\n";
-    echo "REQUEST_URI          : " . var_export(REQUEST_URI, true) . "\n";
-    echo "WEB_PAGE_FOLDER      : " . var_export(WEB_PAGE_FOLDER, true) . "\n";
-    echo "WEB_ROOT             : " . var_export(WEB_ROOT, true) . "\n";
-    echo "WEB_ROOT_FORCE_SSL   : " . var_export(WEB_ROOT_FORCE_SSL, true) . "\n";
-    echo "DOC_ROOT             : " . var_export(DOC_ROOT, true) . "\n";
-    echo "SYS_LOG_PATH         : " . var_export(SYS_LOG_PATH, true) . "\n";
-    echo "LOG_TIME_FORMAT      : " . var_export(SYS_LOG_PATH, true) . "\n";
-    echo "MAX_LOG_LINES        : " . var_export(MAX_LOG_LINES, true) . "\n";
-    if (defined("SUBMODULE_PATH"))
-    {
-        echo "SUBMODULE_PATH       : " . var_export(SUBMODULE_PATH, true) . "\n";
-    }
-    echo "FRAMEWORK_PATH       : " . var_export(FRAMEWORK_PATH, true) . "\n";
-
-    echo "\nApplication constants:\n";
-    echo "APP_PATH             : " . var_export(APP_PATH, true) . "\n";
-    echo "APP_ROUTER_FILE      : " . var_export(APP_ROUTER_FILE, true) . "\n";
-    echo "APP_CONTROLLERS_PATH : " . var_export(APP_CONTROLLERS_PATH, true) . "\n";
-    echo "APP_MODELS_PATH      : " . var_export(APP_MODELS_PATH, true) . "\n";
-    echo "APP_VIEWS_PATH       : " . var_export(APP_VIEWS_PATH, true) . "\n";
-    echo "APP_JS_PATH          : " . var_export(APP_JS_PATH, true) . "\n";
-    echo "APP_STYLES_PATH      : " . var_export(APP_STYLES_PATH, true) . "\n";
-    echo "APP_IMAGES_PATH      : " . var_export(APP_IMAGES_PATH, true) . "\n";
-
-    echo "\nAutoloader search paths:\n";
-    echo var_export($_AUTOLOADER_SEARCH_PATHS, true) . "\n";
-
-    echo "</pre>";
-}

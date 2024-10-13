@@ -69,3 +69,39 @@ function forceSSL()
         header("Location: " . createLinkTo($currentUri, WEB_ROOT_FORCE_SSL));
     }
 }
+
+
+// Log all the framework constants for debugging purpose
+function logFrameworkConstants()
+{
+    global $_AUTOLOADER_SEARCH_PATHS;
+
+    $log = new ModelSystemLogger("frameworkDebug");
+    $log->writeMessage("Framework constants:");
+    $log->writeMessage("REQUEST_URI          : " . var_export(REQUEST_URI, true));
+    $log->writeMessage("WEB_PAGE_FOLDER      : " . var_export(WEB_PAGE_FOLDER, true));
+    $log->writeMessage("WEB_ROOT             : " . var_export(WEB_ROOT, true));
+    $log->writeMessage("WEB_ROOT_FORCE_SSL   : " . var_export(WEB_ROOT_FORCE_SSL, true));
+    $log->writeMessage("DOC_ROOT             : " . var_export(DOC_ROOT, true));
+    $log->writeMessage("SYS_LOG_PATH         : " . var_export(SYS_LOG_PATH, true));
+    $log->writeMessage("LOG_TIME_FORMAT      : " . var_export(SYS_LOG_PATH, true));
+    $log->writeMessage("MAX_LOG_LINES        : " . var_export(MAX_LOG_LINES, true));
+    if (defined("SUBMODULE_PATH"))
+    {
+        $log->writeMessage("SUBMODULE_PATH       : " . var_export(SUBMODULE_PATH, true));
+    }
+    $log->writeMessage("FRAMEWORK_PATH       : " . var_export(FRAMEWORK_PATH, true));
+
+    $log->writeMessage("Application constants:");
+    $log->writeMessage("APP_PATH             : " . var_export(APP_PATH, true));
+    $log->writeMessage("APP_ROUTER_FILE      : " . var_export(APP_ROUTER_FILE, true));
+    $log->writeMessage("APP_CONTROLLERS_PATH : " . var_export(APP_CONTROLLERS_PATH, true));
+    $log->writeMessage("APP_MODELS_PATH      : " . var_export(APP_MODELS_PATH, true));
+    $log->writeMessage("APP_VIEWS_PATH       : " . var_export(APP_VIEWS_PATH, true));
+    $log->writeMessage("APP_JS_PATH          : " . var_export(APP_JS_PATH, true));
+    $log->writeMessage("APP_STYLES_PATH      : " . var_export(APP_STYLES_PATH, true));
+    $log->writeMessage("APP_IMAGES_PATH      : " . var_export(APP_IMAGES_PATH, true));
+
+    $log->writeMessage("Autoloader search paths:");
+    $log->writeDataArray($_AUTOLOADER_SEARCH_PATHS);
+}
