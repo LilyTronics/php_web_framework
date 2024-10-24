@@ -109,24 +109,4 @@ class ModelHelper
         return $body;
     }
 
-
-    // Checks if a string starts with another string
-    static public function startsWith ($haystack, $needle)
-    {
-        $len = strlen($needle);
-        return (substr($haystack, 0, $len) === $needle);
-    }
-
-
-    // Checks if a string ends with another string
-    static public function endsWith($haystack, $needle)
-    {
-        $len = strlen($needle);
-        if ($len == 0)
-        {
-            return true;
-        }
-        return (substr($haystack, -$len) === $needle);
-    }
-
 }
