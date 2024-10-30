@@ -9,7 +9,7 @@ class HtmlPageView
 {
     protected $pageFile;
     protected $pageTitle;
-    protected $userData = array();
+    protected $pageData;
     protected $metaTags = array();
     protected $favIcon = array();
     protected $styleSheets = array();
@@ -54,20 +54,15 @@ class HtmlPageView
     }
 
 
-    public function getUserData($key, $default=null)
+    public function getPageData()
     {
-        $userData = $default;
-        if (isset($this->userData[$key]))
-        {
-            $userData = $this->userData[$key];
-        }
-        return $userData;
+        return $this->pageData;
     }
 
 
-    public function setUserData($key, $value)
+    public function setPageData($pageData)
     {
-        $this->userData[$key] = $value;
+        $this->pageData = $pageData;
     }
 
 
