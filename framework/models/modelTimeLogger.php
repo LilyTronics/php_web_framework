@@ -66,7 +66,7 @@ class ModelTimeLogger
                     $times[$key] = round($times[$keys[$j]] - $times[$keys[$i]], 3);
                 }
             }
-            $log = new ModelSystemLogger();
+            $log = new ModelSystemLogger("timeLogger");
             $log->writeMessage("Times logged for URI: $uri");
             $log->writeDataArray($times);
         }
