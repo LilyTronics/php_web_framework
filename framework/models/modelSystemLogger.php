@@ -32,6 +32,7 @@ class ModelSystemLogger
 
     public function writeMessage($message)
     {
+        $message = $message === null ? "": $message;
         $lines = explode("\n", $message);
         $trace = debug_backtrace();
         $this->writeLines($trace, $lines);
