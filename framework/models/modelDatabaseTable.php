@@ -5,7 +5,8 @@
  */
 
 
-class ModelDatabaseTable {
+class ModelDatabaseTable
+{
 
     protected $tableName;
     protected $fields;
@@ -13,33 +14,40 @@ class ModelDatabaseTable {
 
 
     public function __construct($db, $tableName, $fields, $host, $user, $password,
-                                $autoCreateTable=true, $defaultRecords=[]) {
+                                $autoCreateTable=true, $defaultRecords=[])
+    {
         $this->interface = new ModelMySqlInterface($host, $user, $password);
         $this->tableName = "$db.$tableName";
         $this->fields = $fields;
 
-        if ($autoCreateTable && !$this->checkIfTableExists()) {
+        if ($autoCreateTable && !$this->checkIfTableExists())
+        {
             $this->createTable();
-            foreach ($defaultRecords as $record) {
+            foreach ($defaultRecords as $record)
+            {
                 $this->insertRecord($record);
             }
         }
     }
 
 
-    public function getError() {
+    public function getError()
+    {
         return "SQL error {$this->interface->errno}: {$this->interface->error}";
     }
 
 
-    public function checkIfTableExists() {
+    public function checkIfTableExists()
+    {
         return $this->interface->checkIfTableExists($this->tableName);
     }
 
 
-    public function createTable() {
+    public function createTable()
+    {
         $isSuccessful = $this->interface->createTable($this->tableName, $this->fields);
-        if (!$isSuccessful) {
+        if (!$isSuccessful)
+        {
             $log = new ModelSystemLogger();
             $log->writeMessage("ERROR: table '{$this->tableName}' not created");
         }
@@ -48,58 +56,74 @@ class ModelDatabaseTable {
 
 
     public function selectRecords($filterExpression="", $orderExpression="", $groupExpression="", $start=0, $count=0, $fields=["*"],
-                                  $join="", $joinTable="", $joinExpression="", $joinFields=["*"]) {
+                                  $join="", $joinTable="", $joinExpression="", $joinFields=["*"])
+    {
         return $this->interface->selectRecordsFromTable($this->tableName, $filterExpression, $orderExpression, $groupExpression,
                                                         $start, $count, $fields, $join, $joinTable, $joinExpression, $joinFields);
     }
 
 
-    public function selectRecordsFromQuery($query) {
+    public function selectRecordsFromQuery($query)
+    {
         return $this->interface->selectRecordsFromQuery($query);
     }
 
 
-    public function insertRecord($recordData) {
+    public function insertRecord($recordData)
+    {
         return $this->interface->insertRecordIntoTable($this->tableName, $recordData);
     }
 
 
-    public function updateRecord($newRecordData, $filterExpression) {
+    public function updateRecord($newRecordData, $filterExpression)
+    {
         return $this->interface->updateRecordFromTable($this->tableName, $newRecordData, $filterExpression);
     }
 
 
-    public function deleteRecord($filterExpression) {
+    public function deleteRecord($filterExpression)
+    {
         return $this->interface->deleteRecordFromTable($this->tableName, $filterExpression);
     }
 
-    public function getNumberOfRecords($filterExpression="") {
+    public function getNumberOfRecords($filterExpression="")
+    {
         return $this->interface->getRecordCount($this->tableName, $filterExpression);
     }
 
 
-    public function checkIfRecordExist($recordData) {
+    public function checkIfRecordExist($recordData)
+    {
         $recordExist = false;
         $filters = array();
-        foreach($recordData as $field=>$value) {
-            if (gettype($value) == "string") {
+        foreach($recordData as $field=>$value)
+        {
+            if (gettype($value) == "string")
+            {
                 $value = "'{$this->interface->sqlEscape($value)}'";
             }
             $filters[] = "$field = $value";
         }
         $result = $this->selectRecords(implode(" AND ", $filters));
-        if ($result[0]) {
+        if ($result[0])
+        {
             $recordExist = count($result[1]) > 0;
         }
         return $recordExist;
     }
 
+    public function executeQuery($query)
+    {
+        return $this->interface->query($query);
+    }
 
-    public function clearTable() {
+    public function clearTable()
+    {
         return $this->interface->truncateTable($this->tableName);
     }
 
-    public function deleteTable() {
+    public function deleteTable()
+    {
         return $this->interface->dropTable($this->tableName);
     }
 
