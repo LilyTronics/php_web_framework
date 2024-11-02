@@ -19,13 +19,14 @@ class HtmlPageView
     protected $headerSections = array();
 
 
-    protected function getContentFromPageFile($filename, $path="")
+    protected function getContentFromPageFile($filename, $path="", $variables=[])
     {
         if ($path == "")
         {
             $path = APP_VIEWS_PATH;
         }
         ob_start();
+        extract($variables);
         include DOC_ROOT . $path . $filename;
         return ob_get_clean();
     }
