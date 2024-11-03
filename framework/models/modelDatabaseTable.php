@@ -8,9 +8,9 @@
 class ModelDatabaseTable
 {
 
-    protected $database = "unknown";
-    protected $tableName = "unknown";
-    protected $fields = [];
+    public $database = "unknown";
+    public $tableName = "unknown";
+    public $fields = [];
 
     private $interface;
     private $databaseTable;
