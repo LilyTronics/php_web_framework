@@ -43,9 +43,8 @@ class ModelMySqlInterface extends mysqli {
     }
 
 
-    public function checkIfTableExists($tableName) {
-        $parts = explode(".", $tableName);
-        $query = "SHOW TABLES FROM {$parts[0]} LIKE '" . end($parts) . "'";
+    public function checkIfTableExists($database, $tableName) {
+        $query = "SHOW TABLES FROM {$database} LIKE '{$tableName}'";
         $result = $this->selectRecordsFromQuery($query);
         return ($result[0] && (count($result[1]) > 0));
     }
@@ -107,7 +106,7 @@ class ModelMySqlInterface extends mysqli {
             }, $fields);
             $selectFields = array_merge($selectFields, array_map(function($x){
                 return "b.$x";
-            }, $joinFields));  
+            }, $joinFields));
         }
         $query = "SELECT " . implode(", ", $selectFields) . " FROM $tableName";
         if ($join != "") {

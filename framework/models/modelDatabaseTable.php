@@ -8,17 +8,16 @@
 class ModelDatabaseTable
 {
 
-    protected $tableName;
-    protected $fields;
+    protected $database = "unknown";
+    protected $tableName = "unknown";
+    protected $fields = [];
+
     private $interface;
+    private $databaseTable;
 
-
-    public function __construct($db, $tableName, $fields, $host, $user, $password,
-                                $autoCreateTable=true, $defaultRecords=[])
+    public function __construct($host, $user, $password, $autoCreateTable=true, $defaultRecords=[])
     {
         $this->interface = new ModelMySqlInterface($host, $user, $password);
-        $this->tableName = "$db.$tableName";
-        $this->fields = $fields;
 
         if ($autoCreateTable && !$this->checkIfTableExists())
         {
@@ -28,6 +27,7 @@ class ModelDatabaseTable
                 $this->insertRecord($record);
             }
         }
+        $this->databaseTable = "{$this->database}.{$this->tableName}";
     }
 
 
@@ -39,13 +39,13 @@ class ModelDatabaseTable
 
     public function checkIfTableExists()
     {
-        return $this->interface->checkIfTableExists($this->tableName);
+        return $this->interface->checkIfTableExists($this->database, $this->tableName);
     }
 
 
     public function createTable()
     {
-        $isSuccessful = $this->interface->createTable($this->tableName, $this->fields);
+        $isSuccessful = $this->interface->createTable($this->databaseTable, $this->fields);
         if (!$isSuccessful)
         {
             $log = new ModelSystemLogger();
@@ -58,7 +58,7 @@ class ModelDatabaseTable
     public function selectRecords($filterExpression="", $orderExpression="", $groupExpression="", $start=0, $count=0, $fields=["*"],
                                   $join="", $joinTable="", $joinExpression="", $joinFields=["*"])
     {
-        return $this->interface->selectRecordsFromTable($this->tableName, $filterExpression, $orderExpression, $groupExpression,
+        return $this->interface->selectRecordsFromTable($this->databaseTable, $filterExpression, $orderExpression, $groupExpression,
                                                         $start, $count, $fields, $join, $joinTable, $joinExpression, $joinFields);
     }
 
@@ -71,24 +71,24 @@ class ModelDatabaseTable
 
     public function insertRecord($recordData)
     {
-        return $this->interface->insertRecordIntoTable($this->tableName, $recordData);
+        return $this->interface->insertRecordIntoTable($this->databaseTable, $recordData);
     }
 
 
     public function updateRecord($newRecordData, $filterExpression)
     {
-        return $this->interface->updateRecordFromTable($this->tableName, $newRecordData, $filterExpression);
+        return $this->interface->updateRecordFromTable($this->databaseTable, $newRecordData, $filterExpression);
     }
 
 
     public function deleteRecord($filterExpression)
     {
-        return $this->interface->deleteRecordFromTable($this->tableName, $filterExpression);
+        return $this->interface->deleteRecordFromTable($this->databaseTable, $filterExpression);
     }
 
     public function getNumberOfRecords($filterExpression="")
     {
-        return $this->interface->getRecordCount($this->tableName, $filterExpression);
+        return $this->interface->getRecordCount($this->databaseTable, $filterExpression);
     }
 
 
@@ -119,12 +119,12 @@ class ModelDatabaseTable
 
     public function clearTable()
     {
-        return $this->interface->truncateTable($this->tableName);
+        return $this->interface->truncateTable($this->databaseTable);
     }
 
     public function deleteTable()
     {
-        return $this->interface->dropTable($this->tableName);
+        return $this->interface->dropTable($this->databaseTable);
     }
 
 }
