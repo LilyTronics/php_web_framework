@@ -10,7 +10,8 @@ class ModelHelper
         {
             $webRootOverride = WEB_ROOT;
         }
-        return $webRootOverride . $link;
+        // Make sure we do not have any double '/' when combining the paths
+        return rtrim($webRootOverride, "/") . "/" . ltrim($link, "/");
     }
 
 
