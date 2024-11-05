@@ -17,6 +17,8 @@ class ModelDatabaseTable
 
     public function __construct($host, $user, $password, $autoCreateTable=true, $defaultRecords=[])
     {
+        $this->databaseTable = "{$this->database}.{$this->tableName}";
+
         $this->interface = new ModelMySqlInterface($host, $user, $password);
 
         if ($autoCreateTable && !$this->checkIfTableExists())
@@ -27,7 +29,6 @@ class ModelDatabaseTable
                 $this->insertRecord($record);
             }
         }
-        $this->databaseTable = "{$this->database}.{$this->tableName}";
     }
 
 
