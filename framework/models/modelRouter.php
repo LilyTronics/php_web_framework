@@ -38,9 +38,6 @@ class ModelRouter
     {
         $isMatch = false;
 
-        FRAMEWORK_DEBUG_LOG->writeMessage("Available routes:");
-        FRAMEWORK_DEBUG_LOG->writeDataArray($this->routes);
-
         // Get the default route, in case the URI is not found
         foreach($this->routes as $route)
         {
