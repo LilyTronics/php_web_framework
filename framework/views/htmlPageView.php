@@ -190,9 +190,9 @@ class HtmlPageView
         $output .= "</html>\n";
         // If template values are defined, replace them in the output
         // E.g.: define("TEMPLATE_VALUES", [ "{MY_VAR}" => "my value"]);
-        if (defined("TEMPLATE_VALUES"))
+        if (isset($GLOBALS["TEMPLATE_VALUES"]))
         {
-            $output = strtr($output, TEMPLATE_VALUES);
+            $output = strtr($output, $GLOBALS["TEMPLATE_VALUES"]);
         }
         return $output;
     }
