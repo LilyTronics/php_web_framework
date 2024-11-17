@@ -67,19 +67,9 @@ $_AUTOLOADER_SEARCH_PATHS = array(
 // Load application intialization
 require_once(DOC_ROOT . APP_PATH . "initialize.php");
 
-
-// This should be defined in the application initialize.php
-if (defined("SHOW_DEBUG") && SHOW_DEBUG)
-{
-    // Create a debug logger
-    define("FRAMEWORK_DEBUG_LOG", new ModelSystemLogger("frameworkDebug"));
-    FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
-    FRAMEWORK_DEBUG_LOG->writeMessage("|                            Start framework debug                             |");
-    FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
-    logFrameworkConstants();
-}
-else
-{
-    // Create a dummy logger, else calls to the debug logger will fail
-    define("FRAMEWORK_DEBUG_LOG", new ModelSystemLogger("DUMMY"));
-}
+// Create a debug logger
+define("FRAMEWORK_DEBUG_LOG", new ModelSystemLogger("frameworkDebug"));
+FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
+FRAMEWORK_DEBUG_LOG->writeMessage("|                            Start framework debug                             |");
+FRAMEWORK_DEBUG_LOG->writeMessage("+------------------------------------------------------------------------------+");
+logFrameworkConstants();

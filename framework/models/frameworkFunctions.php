@@ -62,13 +62,16 @@ function forceSSL()
 {
     if (defined("DOMAIN") && $_SERVER["SERVER_NAME"] == DOMAIN && defined("FORCE_SSL") && FORCE_SSL && WEB_ROOT != WEB_ROOT_FORCE_SSL)
     {
-        FRAMEWORK_DEBUG_LOG->writeMessage("Forcing SSL for URI: " . REQUEST_URI);
-        while (substr(REQUEST_URI, 0, 1) == "/")
+        $currentUri = REQUEST_URI;
+        FRAMEWORK_DEBUG_LOG->writeMessage("Forcing SSL for URI: '{$currentUri}'");
+        while (substr($currentUri, 0, 1) == "/")
         {
-            $currentUri = ltrim(REQUEST_URI, "/");
+            $currentUri = ltrim($currentUri, "/");
         }
-        $log->writeMessage("Redirect to $currentUri with SSL");
-        header("Location: " . createLinkTo($currentUri, WEB_ROOT_FORCE_SSL));
+        $newUri = WEB_ROOT_FORCE_SSL . $currentUri;
+        FRAMEWORK_DEBUG_LOG->writeMessage("Redirect to: '{$newUri}'");
+        header("Location: {$newUri}");
+        exit();
     }
     else
     {
