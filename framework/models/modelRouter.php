@@ -96,6 +96,10 @@ class ModelRouter
                 }
             }
         }
+        if (!$isMatch)
+        {
+            FRAMEWORK_DEBUG_LOG->writeMessage("No match found, execute default action");
+        }
     }
 
 
