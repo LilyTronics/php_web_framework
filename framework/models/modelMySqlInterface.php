@@ -55,14 +55,14 @@ class ModelMySqlInterface extends mysqli {
         $lines = array();
         $keys = array();
         foreach ($fields as $field) {
-            $line = "{$field["Name"]} {$field["Type"]}";
-            if (isset($field["Options"])) {
-                $line .= " {$field["Options"]}";
+            $line = "{$field["name"]} {$field["type"]}";
+            if (isset($field["options"])) {
+                $line .= " {$field["options"]}";
             }
-            if (isset($field["Key"]))
+            if (isset($field["key"]))
             {
-                if ($field["Key"]) {
-                    $keys[] = $field["Name"];
+                if ($field["key"]) {
+                    $keys[] = $field["name"];
                 }
             }
             $lines[] = $line;
@@ -175,15 +175,15 @@ class ModelMySqlInterface extends mysqli {
 
     public function getRecordCount($tableName, $filterExpression="") {
         $nRecords = 0;
-        $query = "SELECT COUNT(*) AS NumberOfRecords FROM $tableName";
+        $query = "SELECT COUNT(*) AS number_of_records FROM $tableName";
         if ($filterExpression != "") {
             $query .= " WHERE $filterExpression";
         }
         $result = $this->selectRecordsFromQuery($query);
         if ($result[0]) {
             if (count($result[1]) > 0) {
-                if (isset($result[1][0]["NumberOfRecords"])) {
-                    $nRecords = intval($result[1][0]["NumberOfRecords"]);
+                if (isset($result[1][0]["number_of_records"])) {
+                    $nRecords = intval($result[1][0]["number_of_records"]);
                 }
             }
         }
