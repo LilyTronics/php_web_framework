@@ -57,10 +57,4 @@ Now your project is finished and should show the standard application.
 
 From here you can change all files in the `application` folder of your project to your needs.
 
-To show debug information about the framework, put the following line at the top of your `index.php`:
-
-```
-define("SHOW_DEBUG", true);
-```
-
 Read the git manual about submodules for more information about working with sub modules (https://www.google.com/search?q=git+submodules).
