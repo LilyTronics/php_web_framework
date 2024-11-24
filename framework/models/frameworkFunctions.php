@@ -115,3 +115,9 @@ function logFrameworkConstants()
     FRAMEWORK_DEBUG_LOG->writeDataArray($_AUTOLOADER_SEARCH_PATHS);
 }
 
+
+// Output the content of a variable
+function debug($variable)
+{
+    echo "<pre>" . var_export($variable, true) . "</pre>\n";
+}
