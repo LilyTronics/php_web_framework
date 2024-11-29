@@ -63,7 +63,7 @@ class ModelTimeLogger
                 for ($j = $i + 1; $j < count($keys); $j++)
                 {
                     $key = "{$keys[$i]} to {$keys[$j]}";
-                    $times[$key] = round($times[$keys[$j]] - $times[$keys[$i]], 3);
+                    $times[$key] = round($times[$keys[$j]] - $times[$keys[$i]], 6);
                 }
             }
             $log = new ModelSystemLogger("timeLogger");
