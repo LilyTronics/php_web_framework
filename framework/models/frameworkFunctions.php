@@ -116,8 +116,13 @@ function logFrameworkConstants()
 }
 
 
-// Output the content of a variable
-function debug($variable)
+// Output the content of variables
+function debug(...$variables)
 {
-    echo "<pre>" . var_export($variable, true) . "</pre>\n";
+    echo "<pre>\n";
+    foreach ($variables as $variable)
+    {
+        echo var_export($variable, true) . "\n";
+    }
+    echo "</pre>\n";
 }
