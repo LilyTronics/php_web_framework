@@ -11,9 +11,9 @@ class ModelDatabaseTable
     public $database = "unknown";
     public $tableName = "unknown";
     public $fields = [];
+    public $databaseTable;
+    public $interface;
 
-    private $interface;
-    private $databaseTable;
 
     public function __construct($host, $user, $password, $autoCreateTable=true, $defaultRecords=[])
     {
