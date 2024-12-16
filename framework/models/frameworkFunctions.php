@@ -93,7 +93,7 @@ function logFrameworkConstants()
     FRAMEWORK_DEBUG_LOG->writeMessage("WEB_ROOT_FORCE_SSL   : " . var_export(WEB_ROOT_FORCE_SSL, true));
     FRAMEWORK_DEBUG_LOG->writeMessage("DOC_ROOT             : " . var_export(DOC_ROOT, true));
     FRAMEWORK_DEBUG_LOG->writeMessage("SYS_LOG_PATH         : " . var_export(SYS_LOG_PATH, true));
-    FRAMEWORK_DEBUG_LOG->writeMessage("LOG_TIME_FORMAT      : " . var_export(SYS_LOG_PATH, true));
+    FRAMEWORK_DEBUG_LOG->writeMessage("LOG_TIME_FORMAT      : " . var_export(LOG_TIME_FORMAT, true));
     FRAMEWORK_DEBUG_LOG->writeMessage("MAX_LOG_LINES        : " . var_export(MAX_LOG_LINES, true));
     if (defined("SUBMODULE_PATH"))
     {
